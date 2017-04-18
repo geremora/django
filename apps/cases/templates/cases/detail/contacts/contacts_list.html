@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load django_tables2 %}
+{% block title %}Contactos{% endblock title %}
+{% block main %}
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="page-actions-heading">Contactos del caso: <a href="{% url 'case_detail' case.id  %}">{{ case.number }}</a></h3>
+      {% if perms.contacts.add_contact %}
+        <a href="{% url 'case_contact_create' case.id  %}" class="btn btn-grey pull-right">Agregar contacto</a>
+      {% endif %}
+      <hr>
+      <div class="col-md-12">
+        <form method="GET" action={% url 'case_contacts_list' case.id %} role="search">
+          <div class="col-md-10">
+            <div class="form-group">
+              <input placeholder="" type="text" name="search" class="full-width form-control" autofocus>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <button class="btn btn-default btn-block">Buscar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    {% if contact_table %}
+      <div class="col-md-12">
+        {% render_table contact_table %}
+      </div>
+    {% else %}
+      <p class="lead">No se encontraron contactos para este caso</p>
+    {% endif %}
+    </div>
+  </div>
+{% endblock main %}

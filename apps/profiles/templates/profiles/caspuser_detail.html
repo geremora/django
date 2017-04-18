@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ caspuser.get_full_name }}' profile{% endblock title %}
+
+{% block main %}
+  <div class="row">
+    <div class="page-actions">
+      <div class="col-md-offset-3 col-md-6">
+        <div class="col-md-12">
+          <h3 class="page-actions-heading">{{ caspuser.get_full_name }} <small>{{ caspuser.caspuser_type.name }}</small></h3>
+          <a class="btn btn-grey pull-right" href="{% url 'profile_update' %}">Editar</a>
+          <hr>
+          <div class="col-md-12">
+            <div class="page-detail-value">{{ caspuser.username|default:"n/a" }}</div>
+            <div class="page-detail-label">Username</div>
+            <div class="page-detail-value">{{ caspuser.email|default:"n/a" }}</div>
+            <div class="page-detail-label">Email</div>
+            <div class="page-detail-value">{{ caspuser.phone|default:"n/a" }}</div>
+            <div class="page-detail-label">Phone</div>
+            <p>
+              <a class="btn btn-default" href="{% url 'password_change' %}">
+                Cambiar Password
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock main %}

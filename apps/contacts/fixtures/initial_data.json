@@ -1,0 +1,143 @@
+[
+{
+    "pk": 1,
+    "model": "contacts.contact",
+    "fields": {
+        "city": "San Juan",
+        "first_name": "",
+        "last_name": "",
+        "related_instutution": null,
+        "contact_type": 1,
+        "phone2": "",
+        "notes": "",
+        "phone1": "123-123-1234",
+        "state": "PR",
+        "institutional_name": "Dpto. Salud",
+        "address": "PO Box 123",
+        "email": "salud@example.com",
+        "zip_code": "00936"
+    }
+},
+{
+    "pk": 2,
+    "model": "contacts.contact",
+    "fields": {
+        "city": "San Juan",
+        "first_name": "Juan",
+        "last_name": "Del Pueblo",
+        "related_instutution": null,
+        "contact_type": 6,
+        "phone2": "",
+        "notes": "",
+        "phone1": "123-123-1234",
+        "state": "PR",
+        "institutional_name": "",
+        "address": "PO Box 123",
+        "email": "juan@example.com",
+        "zip_code": "00912"
+    }
+},
+{
+    "pk": 3,
+    "model": "contacts.contact",
+    "fields": {
+        "city": "San Juan",
+        "first_name": "Empleado",
+        "last_name": "Del Pueblo",
+        "related_instutution": null,
+        "contact_type": 3,
+        "phone2": "",
+        "notes": "",
+        "phone1": "123-123-1234",
+        "state": "PR",
+        "institutional_name": "",
+        "address": "PO Box 123",
+        "email": "juan@example.com",
+        "zip_code": "00912"
+    }
+},
+{
+    "pk": 1,
+    "model": "contacts.contacttype",
+    "fields": {
+        "name": "Agencia de Gobierno"
+    }
+},
+{
+    "pk": 2,
+    "model": "contacts.contacttype",
+    "fields": {
+        "name": "Abogado / Representant"
+    }
+},
+{
+    "pk": 3,
+    "model": "contacts.contacttype",
+    "fields": {
+        "name": "Empleado"
+    }
+},
+{
+    "pk": 4,
+    "model": "contacts.contacttype",
+    "fields": {
+        "name": "Representate Exclusivo"
+    }
+},
+{
+    "pk": 5,
+    "model": "contacts.contacttype",
+    "fields": {
+        "name": "Organizacion Obrera"
+    }
+},
+{
+    "pk": 6,
+    "model": "contacts.contacttype",
+    "fields": {
+        "name": "Ciudadano"
+    }
+},
+{
+    "pk": 1,
+    "model": "contacts.contactrole",
+    "fields": {
+        "name": "Promovente Principal"
+    }
+},
+{
+    "pk": 2,
+    "model": "contacts.contactrole",
+    "fields": {
+        "name": "Promovido Principal"
+    }
+},
+{
+    "pk": 3,
+    "model": "contacts.contactrole",
+    "fields": {
+        "name": "Promovente"
+    }
+},
+{
+    "pk": 4,
+    "model": "contacts.contactrole",
+    "fields": {
+        "name": "Promovido"
+    }
+},
+{
+    "pk": 5,
+    "model": "contacts.contactrole",
+    "fields": {
+        "name": "Abogado"
+    }
+},
+{
+    "pk": 6,
+    "model": "contacts.contactrole",
+    "fields": {
+        "name": "Interventor"
+    }
+}
+]

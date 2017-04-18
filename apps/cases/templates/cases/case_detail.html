@@ -1,0 +1,476 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% load i18n %}
+{% block title %}
+
+{{ object.number }}
+
+ {% if not object.active%}
+        (Caso desactivado)
+ {% endif %}
+
+{% endblock title %}
+{% block main %}
+<div class="row">
+  {% if messages %}
+    <!-- Error Messages -->
+    <div class="col-md-12">
+      <div class="alert alert-danger">
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+  <div class="page-actions">
+    <!-- Case number -->
+    <div class="col-md-offset-1 col-md-10">
+        <h3 class="page-actions-heading inline-block">{{ object.number }}  
+          {% if not object.active%}
+              (Caso desactivado)
+          {% endif %}
+        </h3>
+
+      {% if can_change_case and object.is_main_case%}
+        <div class="btn-group pull-right case-header-button">
+          <a class="btn btn-grey dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="fa fa-edit"></i> Modificar Caso <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            {% if object.state != 'closed' %}
+              {%  if can_change_assigned_user %}
+                <li>
+                  <a href="{% url 'case_update_assigned_user' object.id %}">
+                    <i class="fa fa-user"></i> Empleado Asignado
+                  </a>
+                </li>
+              {%  endif %}
+              {% if case.case_type.mediation_allowed and not case.was_mediation %}
+
+                {% if case.mediation %}
+                
+                <li>
+                    <a href="{% url 'remove_case_mediation' object.id %}">
+                      <i class="fa fa-handshake-o"></i> Quitar de Mediación
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'send_case_mediation' object.id %}">
+                      <i class="fa fa-handshake-o"></i> Enviar a Mediación
+                    </a>
+                </li>
+           
+                {% endif %}
+              {% endif %}
+              {% if change_case_contact %}
+                <li>
+                  <a href="{% url 'case_contacts_list' object.id %}">
+                    <i class="fa fa-book"></i> Contactos
+                  </a>
+                </li>
+              {% endif %}
+              {% if can_change_case_description %}
+                <li>
+                  <a href="{% url 'case_update_description' object.id %}">
+                    <i class="fa fa-comment"></i> Descripción
+                  </a>
+                </li>
+              {% endif %}
+              {% if can_change_casecategory %}
+                <li>
+                  <a href="{% url 'change_casecategory' object.id %}">
+                    <i class="fa fa-comment"></i> Materia
+                  </a>
+                </li>
+              {% endif %}
+              {% if can_change_record_holder_case %}
+                <li>
+                  <a href="{% url 'case_update_record_view' object.id %}">
+                    <i class="fa fa-folder-open"></i> Transferir expediente
+                  </a>
+                </li>
+              {% endif %}
+              <li class="divider"></li>
+            {% endif %}
+            {% if object.state == 'closed' %}
+             
+
+              {% if can_re_open_case %}
+              <li>
+                  <a href="{% url 'case_re_open' object.id %}">
+                    <i class="fa fa-folder-open-o"></i> Reabrir caso
+                  </a>
+                </li>
+              {% endif %}
+            {% endif %}
+            {% if can_add_incoming_event %}
+              <li>
+                <a href="{% url 'create_incoming_event' object.id %}"><i class="fa fa-inbox"></i> Recibir Documento</a>
+              </li>
+            {% endif %}
+            {% if can_add_outgoing_event %}
+                <li>
+                  <a href="{% url 'create_outgoing_event' object.id %}">
+                    <i class="fa fa-file"></i> Emitir Documento
+                  </a>
+                </li>
+            {% endif %}
+            {% if can_add_notes %}
+              <li>
+                <a href="{% url 'note_create' object.id %}">
+                  <i class="fa fa-edit"></i> Crear nota
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      {% endif %}
+      <hr>
+    </div>
+    <div class="col-md-offset-1 col-md-10">
+      <!-- Header Information -->
+      {% include "cases/detail/header_information.html" %}
+
+      <!-- Main Actions -->
+      <div class="hidden-print">
+      {% if can_change_case %}
+        {#{% if 'normal-user' in user_groups and object.assigned_user == user %}#}
+      {% include "cases/detail/main_actions.html" %}
+        {#{% elif 'normal-user' not in user_groups %}#}
+        {#{% include "cases/detail/main_actions.html" %}#}
+        {#{% endif %}#}
+      {% endif %}
+      </div>
+    </div>
+    <div class="col-md-offset-1 col-md-10 hidden-print">
+      <!-- Tab Navigation -->
+      <ul class="nav nav-tabs" id="case-detail-tab">
+        <li><a href="#events" data-toggle="tab">Trámite</a></li>
+        <li><a href="#imported" data-toggle="tab">Importados</a></li>
+        <li><a href="#expired-events" data-toggle="tab">Expirados</a></li>
+        <li><a href="#documents" data-toggle="tab">Documentos</a></li>
+        <li><a href="#meetings" data-toggle="tab">Vistas</a></li>
+        <li><a href="#notes" data-toggle="tab">Notas</a></li>
+        <li><a href="#merged" data-toggle="tab">Casos consolidados{% if object.container.has_merged_cases %} <span class="label label-info">{{ object.container.get_case_count|add:"-1" }}</span>{% endif %}</a></li>
+      </ul>
+    </div>
+    <div class="col-md-offset-1 col-md-10">
+      <div class="tab-content">
+
+      <!-- Events -->
+      <div class="tab-pane" id="events">
+
+        {% if object.was_consolidated and not object.is_main_case %}
+          <div class="alert alert-warning">
+            Este caso se encuentra <strong>consolidado</strong> con el caso: <a href="{% url 'case_detail' object.container.main_case.id %}">{{ object.container.main_case.number }}</a>
+          </div>  
+          {% else %}
+
+          {% if object.was_consolidated and object.is_main_case %}
+            <div class="alert alert-warning">
+              Este caso se <strong>consolidó</strong> con:
+              {% for c in object.container.get_cases_not_main %}
+               {% if forloop.last %}
+                      <a href="{% url 'case_detail' c.id %}">{{ c.number }}</a>
+                {% else %}
+                      <a href="{% url 'case_detail' c.id %}">{{ c.number }}</a>,
+                {% endif %}
+              
+              {% endfor %}
+              
+            </div> 
+          {% endif %} 
+
+        {% endif %} 
+        <div class="case-print-action">
+
+          <div id="caseFilter" class="btn-group" data-case-id="{{ object.id }}">
+            <label class="checkbox-inline">
+              <input id="filterEvents" type="checkbox" checked>Eventos
+            </label>
+            <label  class="checkbox-inline">
+              <input id="filterNotes" type="checkbox" checked>Notas
+            </label>
+            <label class="checkbox-inline">
+              <input id="filterMeetings" type="checkbox" checked>Vistas
+            </label>
+            <label class="checkbox-inline">
+              <input id="filterImported" type="checkbox">Importados
+            </label>
+            <label class="checkbox-inline">
+              <select id="totalResult" name="totalResult">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="1000">Todos</option>
+              </select>
+            </label>
+
+            {% if object.was_consolidated %}
+            
+               
+            {% endif %} 
+          </div>
+
+          <a href="{% url 'case_print' object.id %}" class="btn btn-default pull-right">
+            <i class="fa fa-print"></i> Imprimir tramite
+          </a>
+        </div>
+        <!-- <div class="case-container">
+            <p><button class="btn load-cases-button" data-case-id="{{ object.id }}">Cargar</button></p>
+        </div> -->
+
+        <div id="event-list">
+
+        <div class="col-md-12">
+           {% with feed as events %}
+            {% for event in events %}
+              {% for item in event.list %}
+                <div class="event-row {{ item.get_object_type|lower }} {{ item.event_type|lower|slugify }}" id="{{ item.get_object_type|lower }}-{{ item.id }}">
+                  {% if forloop.counter == 1 %}
+                    <div class="col-md-2 event-date">
+                      {% if event.grouper|date:"c" == '1970-01-01' %}
+                        Fecha no disponible
+                      {% else %}
+                        {{ event.grouper|date:"M j, o" }}
+                      {% endif %}
+                    </div>
+                  {% else %}
+                    <div class="col-md-2 event-date"></div>
+                  {% endif %}
+
+                  <div class="col-md-10 no-padding event-content-block">
+                    {% include "cases/detail/event/event.html" with case=object%}
+                  </div>
+                </div>
+              {% endfor %}
+            {% endfor %}
+          {% endwith %}
+        </div>
+
+        </div>
+
+        <!-- Case created event -->
+
+        <div class="col-md-12">
+          <div class="event-row case-created-event" id="CaseCreated-0">
+            <div class="col-md-2 event-date">{{ object.date_created|date:"M j, o" }}</div>
+            <div class="col-md-10 no-padding event-content-block">
+              <div class="event-header-row">
+                <div class="col-md-10 event-type">Caso abierto</div>
+                <div class="col-md-2 event-label"></div>
+              </div>
+              <div class="event-body-row">
+                <div class="col-md-12 event-comments">
+                  Se creó el caso en el sistema
+                </div>
+              </div>
+              <div class="event-footer-row">
+                <div class="col-md-12 event-time">
+                  <strong>{{ object.date_created|date:"g:i A" }}</strong> por <strong>{{ object.created_by.get_full_name }}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+
+      <!-- ImportedEvents -->
+      <div class="tab-pane" id="imported">
+        {% with object.get_imported_events as events %}
+          {% for event in events %}
+            <div class="event-row {{ event.get_object_type|lower }}" id="{{ event.get_object_type|lower }}-{{ event.id }}">
+              <div class="col-md-2 event-date">{{ event.date_created|date:"M j, o" }}</div>
+              <div class="col-md-10 no-padding event-content-block">
+                <div class="event-header-row">
+                  <div class="col-md-10 event-type">{{ event.event_type }}</div>
+                  <div class="col-md-2 event-label"></div>
+                </div>
+                <div class="event-body-row">
+                  <div class="col-md-9 event-comments">
+                    {{ event.description }}
+                  </div>
+                </div>
+                <div class="event-footer-row">
+                  <div class="col-md-4 event-time">
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endwith %}
+      </div>
+
+      <!-- Expired Events -->
+      <div class="tab-pane" id="expired-events">
+        {% with feed as events %}
+          {% for event in events %}
+            {% for item in event.list %}
+              {% if item.terms_expired %}
+                <div class="event-row {{ item.get_object_type|lower }} {{ item.event_type|lower|slugify }}" id="{{ item.get_object_type|lower }}-{{ item.id }}">
+                  {% if forloop.counter == 1 %}
+                    <div class="col-md-2 event-date">{{ event.grouper|date:"M j, o" }}</div>
+                  {% else %}
+                    <div class="col-md-2 event-date"></div>
+                  {% endif %}
+                  <div class="col-md-9 no-padding event-content-block">
+                    {% include "cases/detail/event/event.html" %}
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+          {% if not events %}
+              <p class="lead">No hay <strong>eventos</strong> en este caso.</p>
+          {% endif %}
+        {% endwith %}
+      </div>
+
+      <!-- Documents -->
+      <div class="tab-pane" id="documents">
+        {% if documents %}
+          <table class="table table-bordered table-striped">
+            <thead>
+              <th>Nombre</th>
+              <th>Fecha</th>
+              <th>Entrado por</th>
+            </thead>
+            <tbody>
+              {% for document in documents %}
+                <tr>
+                  <td>
+                    {% if document.attached_file %}
+                      {# Is html doc #}
+                      <i class="fa fa-file"></i> <a href="{{ document.get_attached_file_url}}">{{ document.event_type }}</a>
+                    {% else %}
+                      {# Is a file #}
+                      <i class="fa fa-file"></i> <a href="{% url 'preview_outgoing_event_document' case_id document.id %}">{{ document.event_type }}</a>
+                    {% endif %}
+                  </td>
+                  <td>{{ document.date_created }}</td>
+                  <td>{{ document.created_by }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p class="lead">No hay <strong>documentos</strong> en este caso.</p>
+        {% endif %}
+      </div>
+
+      <!-- Meetings -->
+      <div class="tab-pane" id="meetings">
+        {% if meetings %}
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Salón</th>
+                <th>Comentarios</th>
+                <th>Comienza</th>
+                <th>Termina</th>
+                <th>Invitados</th>
+                <th>Armas</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+              <tbody>
+                {% language 'es' %}
+                {% for meeting in meetings %}
+                  <tr>
+                    <td>
+                        <i class="fa fa-calendar"></i>
+                        <a href="{% url 'meeting_update' object.id meeting.pk %}">{{ meeting.room }}</a>
+                    </td>
+                    <td>{{ meeting.notes }}</td>
+                    <td>{{ meeting.date_start|date:"g:i A, j \d\e F \d\e\l o" }}</td>
+                    <td>{{ meeting.date_end|date:"g:i A, j \d\e F \d\e\l o" }}</td>
+                    <td>
+                      <ul>
+                        {% for attendee in meeting.get_attendees %}
+                          <li>
+                            {{ attendee.contact.get_name }}
+                            {% if attendee.did_show_up == True %}
+                              <span class="label label-success">Se presentó</span>
+                            {% elif attendee.did_show_up == False %}
+                              <span class="label label-important">No se presentó</span>
+                            {% endif %}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                      {% if can_merge_cases %}
+                        <a href="{% url 'meeting_attendance' object.id meeting.pk %}" class="btn btn-mini">Modificar Asistencia</a>
+                      {% endif %}
+                    </td>
+                    <td>{% if meeting.somebody_armed %}SI{% else %}NO{% endif %}</td>
+                    <td>
+                      {% if meeting.status == "did_happen" %}
+                       <span class="{{  meeting.status }}">Se celebr&oacute;</span>
+                      {% elif meeting.status == "scheduled" %}
+                        <span class="{{  meeting.status }}">Pautada</span>
+                      {% else %}
+                        <span class="{{  meeting.status }}">Se cancel&oacute;</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+                {% endlanguage %}
+              </tbody>
+          </table>
+        {% else %}
+            <p class="lead">No hay <strong>vistas</strong> en este caso.</p>
+        {% endif %}
+      </div>
+
+        <!-- Notes -->
+        <div class="tab-pane" id="notes">
+          {% if notes %}
+            <table class="table table-bordered table-striped">
+              <thead>
+                <th>Nota</th>
+                <th>Fecha</th>
+                <th>Entrado por</th>
+              </thead>
+              <tbody>
+                {% for note in notes %}
+                <tr>
+                  <td>{{ note.content }}</td>
+                  <td width="200">{{ note.date_created }}</td>
+                  <td width="200">{{ note.created_by }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p class="lead">No hay <strong>notas</strong> en este caso.</p>
+          {% endif %}
+        </div>
+
+        <!-- Merged Cases -->
+        <div class="tab-pane" id="merged">
+
+          {% include "cases/detail/merged_cases/cases_merged_list.html" %}
+          <!-- <div class="case-print-action">
+            {% if can_merge_cases %}
+              <a href="{% url 'case_merge_view' object.id %}" class="btn btn-default pull-right">Consolidar casos</a>
+            {% endif %}
+          </div>
+          {% if object.container.has_merged_cases %}
+
+            <form action="{% url 'case_unmerge_list_view' %}?case_pk={{ object.id }}" method="POST">
+              {% csrf_token %}
+              <div class="merged-case-container">
+                  <div class="alert alert-succeess"><strong>Nota:</strong> Este caso está consolidado con: <span>{{ object.container.get_case_count|add:"-1" }}</span> caso/s.</div>
+                  <p><button class="btn load-merged-cases-button" data-case-id="{{ object.id }}">Cargar Casos Consolidados</button></p>
+                  <br><br><br>
+              </div>
+            </form>
+          {% else %}
+            <p class="lead">No hay <strong>casos consolidados</strong> con este caso.</p>
+          {% endif %} -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main %}

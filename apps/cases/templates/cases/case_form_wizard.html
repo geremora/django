@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% block title %}
+    Crear caso
+{% endblock title %}
+
+{% block main %}
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <h3 class="page-actions-heading">Crear caso</h3>
+      <hr>
+      {% if form.errors %}
+        <div class="alert alert-danger">
+          <strong>Ups!</strong> Errores de validación en el formulario
+        </div>
+      {% endif %}
+      <form method="POST" class="form-horizontal">{% csrf_token %}
+        <div class="col-md-12">
+          <div class="col-md-12">
+            {{ wizard.form.media }}
+            {{ wizard.management_form }}
+            {% if wizard.form.forms %}
+              {{ wizard.form.management_form }}
+              {% for form in wizard.form.forms %}
+                {% for field in form %}
+                  <div class="form-group {% if field.errors %}has-error{% endif %}">
+                    <label for="{{field.name}}">{{field.label}}</label>
+                    {{field}}
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <span class="has-error help-block">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              {% endfor %}
+            {% else %}
+              {% for field in wizard.form %}
+                  <div class="form-group {% if field.errors %}has-error{% endif %}">
+                  <label for="{{field.name}}">{{field.label}}</label>
+                  <div>
+                    {{field}}
+                  </div>
+                  {% if field.errors %}
+                    {% for error in field.errors %}
+                        <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              {% endfor %}
+            {% endif %}
+            <div class="form-group">
+              <hr>
+              {% if wizard.steps.prev %}
+                <button type="submit" class="btn btn-grey">Abrir Caso</button>
+                <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" class="btn btn-link">Previous step</button>
+              {% else %}
+                <button type="submit" class="btn btn-grey">Continuar</button>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock main %}

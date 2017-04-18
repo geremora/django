@@ -1,0 +1,20 @@
+{% with case.get_all_contacts as contacts %}
+    {% if contacts %}
+        <div class="row">
+            <div class="span12">
+                <br>
+                <p><strong>Contactos</strong></p>
+                <ul>
+                    {% for contact in contacts %}
+                        <li class="event-document-template-contact-list">
+                            <strong>{{ contact.get_name }}</strong><br>
+                            {{ contact.address }}<br>
+                            {{ contact.city }}, {{ contact.state }}<br>
+                            {{ contact.zip_code}}<br>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+{% endwith %}

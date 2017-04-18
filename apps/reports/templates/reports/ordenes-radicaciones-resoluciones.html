@@ -1,0 +1,57 @@
+{% extends "reports/report_base.html" %}
+{% load django_tables2 %}
+{% block title %}CASP Reports {{ page_header }}{% endblock title %}
+{% block report_title %} Ordenes, Radicaciones y Resoluciones Por Mes {% endblock report_title %}
+{% block filter_controls %}
+  <div class="search_controls_row">
+    <h4>Filtros</h4>
+    <hr>
+    <div class="form-group">
+      <div class="col-md-12">
+        <label for="search_year">Año</label>
+        <select id="search_year" name='search_year'>
+          {% for year in years %}
+            {% if year == search_year %}
+              <option value="{{ year }}" selected>{{ year }}</option>
+            {% else %}
+              <option value="{{ year }}">{{ year }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-12">
+        <button type="submit" style="width: 100%" class="btn btn-grey">Buscar</button>
+      </div>
+    </div>
+  </div>
+{% endblock filter_controls %}
+{% block data_table %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Mes/Año</th>
+        <th>ORD</th>
+        <th>RAD</th>
+        <th>RES</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for rec in recs %}
+        <tr>
+          <td>{{ rec.month }}</td>
+          <td>{{ rec.ord }}</td>
+          <td>{{ rec.rad }}</td>
+          <td>{{ rec.res }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <th>Totals</th>
+      <th>{{ recs_totals.ord_total }}</th>
+      <th>{{ recs_totals.rad_total }}</th>
+      <th>{{ recs_totals.res_total }}</th>
+    </tfoot>
+  </table>
+{% endblock data_table %}

@@ -1,0 +1,39 @@
+{% if page_obj.number == 1 %}
+    <div class="alert"><strong>Importante:</strong> Todos los eventos registrados en este caso se reflejarán automaticamente en todos los demás casos consolidados. Abajo hay una lista de los casos consolidados.</div>
+{% endif %}
+
+<div>
+    {% if can_unmerge_case or case.can_unmerge %}
+        <button type="submit" class="btn pull-right">Desconsolidar</button>
+    {% endif %}
+    <table class="table table-bordered table-striped merged_cases">
+        <thead>
+            <th><input type="checkbox" class="select-all-merged-cases">Seleccione Todos</th>
+            <th>Número de caso</th>
+        </thead>
+        <tbody>
+            {% for case in object_list %}
+                {% if case.id != object.id %}
+                    <tr>
+                        <td>
+                            {% if can_unmerge_case or case.can_unmerge %}
+                                <input type="checkbox" name="selected_case" value="{{ case.id }}">
+                            {% else %}
+                                <input type="checkbox" name="selected_case" disabled value="{{ case.id }}">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'case_detail' case.id %}">{{ case.number }}</a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if page_obj.has_next %}
+    <p><button class="btn load-merged-cases-button" data-case-id="{{ object.id }}" data-case-next-page="{{ page_obj.next_page_number }}">Cargar Página {{ page_obj.next_page_number }} de {{ page_obj.paginator.num_pages }}</button></p>
+{% endif %}
+
+<br><br><br>

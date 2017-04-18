@@ -1,0 +1,11 @@
+{% extends object.get_template_name %}
+{% block content %}
+    {% if print %}
+        <script>window.print();</script>
+    {% endif %}
+    {% if object.document_content %}
+        {{ object.document_content|safe }}
+    {% else %}
+        <div class="document-placeholder">No se encontró el documento</div>
+    {% endif %}
+{% endblock content %}

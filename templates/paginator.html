@@ -1,0 +1,33 @@
+{% if page_obj.paginator.num_pages > 1 %}
+  <div class="col-md-12">
+    <ul class='pagination'>
+      {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{search_query}}{% endif %}">&laquo;</a></li>
+      {% endif %}
+
+      {% if show_first %}
+        <li><a href="?page=1{% if search_query %}&search={{search_query}}{% endif %}">Primera</a></li>
+        <li class="disabled"><a>...</a></li>
+      {% endif %}
+
+      {% for link_page in page_numbers %}
+        {% ifequal link_page page %}
+          <li class="disabled"><a>Página {{ link_page }}</a></li>
+        {% else %}
+          <li><a href="?page={{ link_page }}{% if search_query %}&search={{search_query}}{% endif %}">{{ link_page }}</a></li>
+        {% endifequal %}
+      {% endfor %}
+
+      {% if show_last %}
+        <li class="disabled"><a>...</a></li>
+        <li><a href="?page={{ pages }}{% if search_query %}&search={{search_query}}{% endif %}">Última</a></li>
+      {% endif %}
+
+      {% if page_obj.has_next %}
+        <li>
+          <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{search_query}}{% endif %}">&raquo;</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+{% endif %}

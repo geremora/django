@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}{{ contact.get_name }}{% endblock title %}
+
+{% block main %}
+    <div class="row page-actions page-actions-contacts-list">
+        <div class="span10 page-actions-left">
+            <h3 class="page-actions-heading">{{ contact.get_name }} <small>{{ contact.contact_type.name }}</small></h3>
+        </div>
+        <div class="span2">
+            {% if perms.contacts.change_contact %}
+                <a class="btn pull-right" href="{% url 'contact_update' contact.id %}">Editar</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <td><strong>Tipo de contacto</strong></td>
+                <td>{{ contact.contact_type.name }}</td>
+            </tr>
+            {% if contact.related_instutution %}
+                <tr>
+                    <td><strong>Relacionado a institución</strong></td>
+                    <td><a href="{% url 'contact_detail' contact.related_instutution_id %}">{{ contact.related_instutution }}</a></td>
+                </tr>
+            {% endif %}
+            {% if contact.email %}
+                <tr>
+                    <td><strong>Email</strong></td>
+                    <td><a href="mailto:{{ contact.email }}">{{ contact.email }}</td>
+                </tr>
+            {% endif %}
+            {% if contact.phone1 %}
+                <tr>
+                    <td><strong>Teléfono 1</strong></td>
+                    <td>{{ contact.phone1 }}</td>
+                </tr>
+            {% endif %}
+            {% if contact.phone2 %}
+                <tr>
+                    <td><strong>Teléfono 2</strong></td>
+                    <td>{{ contact.phone2 }}</td>
+                </tr>
+            {% endif %}
+            {% if contact.address or contact.city or contact.state or contact.zip_code %}
+                <tr>
+                    <td><strong>Dirección postal</strong></td>
+                    <td>
+                        <p>{{ contact.address }}</p>
+                        <p>{{ contact.city }} {{ contact.state }} {{ contact.zip_code }}</p>
+                    </td>
+                </tr>
+            {% endif %}
+            {% if contact.notes %}
+
+            {% endif %}
+            {% if contact.head_agency %}
+                <tr>
+                    <td><strong>Jefe Agencia</strong></td>
+                    <td>{{ contact.head_agency }}</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock main %}

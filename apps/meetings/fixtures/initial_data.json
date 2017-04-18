@@ -1,0 +1,26 @@
+[
+{
+    "pk": 1, 
+    "model": "meetings.room", 
+    "fields": {
+        "name": "Salon 101", 
+        "location": "Primer piso oficina 1"
+    }
+},
+{
+    "pk": 2, 
+    "model": "meetings.room", 
+    "fields": {
+        "name": "Salon 102", 
+        "location": "Primer piso segunda oficina"
+    }
+},
+{
+    "pk": 3, 
+    "model": "meetings.room", 
+    "fields": {
+        "name": "Salon 201", 
+        "location": "Segundo piso primera oficina"
+    }
+}
+]

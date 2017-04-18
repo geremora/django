@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% block title %}Log in{% endblock title %}
+{% block main %}
+  <div class="row">
+    <div class="col-md-offset-4 col-md-4">
+      <img class="center-img small-img" src="{{STATIC_URL}}images/casp-small.png" alt="">
+      <div>
+        <h3 class="text-center">Log in</h3>
+        <hr>
+      </div>
+      {% if form.errors %}
+        {% for field in form %}
+           {% for error in field.errors %}
+             <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+             </div>
+           {% endfor %}
+         {% endfor %}
+         {% for error in form.non_field_errors %}
+             <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+             </div>
+         {% endfor %}
+      {% endif %}
+      <form method="POST">{% csrf_token %}
+        {% for field in form %}
+          <div class="form-group">
+            <label for="{{field.name}}">{{field.label}}</label>
+            {{field}}
+          </div>
+        {% endfor %}
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn btn-grey btn-block">Log in</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <hr>
+  <div class='row'>
+    <div class='col-md-offset-4 col-md-4 text-center'>
+      <p>Forgot password? <a href="{% url 'password_reset' %}">Reset it</a>!</p>
+    </div>
+  </div>
+{% endblock main %}

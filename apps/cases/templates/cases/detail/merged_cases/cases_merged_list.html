@@ -1,0 +1,51 @@
+<div class="case-print-action">
+{% if can_merge_cases %}
+  <a href="{% url 'case_merge_view' object.id %}" class="btn btn-default pull-right">Consolidar casos</a>
+{% endif %}
+</div>
+{% if object.container.has_merged_cases %}
+  <table class="table table-bordered table-striped">
+      <thead>
+        <th>Caso</th>
+        <th>Promovente</th>
+        <th>Promovido</th>
+        <th>Acciones</th>
+      </thead>
+      <tbody>
+        {% for c in object.container.get_cases %}
+        <tr>
+          <td><a href="{% url 'case_detail' c.id %}">{{ c.number }}  
+            {% if c.is_main_case %} (Principal) {% endif %}
+          </td>
+          <td>
+            <a class="{% if object.get_plaintiff_contact_role.active == False %}contact-case-role-inactive{% endif %}"href="{% url 'contact_detail' c.plaintiff.id %}">{{c.get_plaintiff_contact_role.contact.get_name }}</a>
+          </td>
+          <td>
+            <a class="{% if object.get_defendant_contact_role.active == False %}contact-case-role-inactive{% endif %}" href="{% url 'contact_detail' c.defendant.id %}">{{c.get_defendant_contact_role.contact.get_name}}</a>
+          </td>
+          <td class="link">
+            {% if not c.is_main_case %} 
+              <a href="{% url 'case_unmerge_view' object.id c.pk %}" title="Desconsolidar">
+                <i class="fa fa-chain-broken" aria-hidden="true"></i>
+              </a> 
+
+            {% endif %}
+            {% if c.active %} 
+              <a href="{% url 'case_desactive_view' object.id c.pk %}" title="Desactivar">
+                  <i class="fa fa-toggle-off" aria-hidden="true"></i>
+              </a> 
+
+            {% else %}
+
+              <a href="{% url 'case_active_view' object.id c.pk %}" title="Activar">
+                <i class="fa fa-toggle-on" aria-hidden="true"></i>
+            </a> 
+
+            {% endif %}
+            
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+{% endif %}

@@ -1,0 +1,53 @@
+{% extends "reports/report_base.html" %}
+{% load django_tables2 %}
+{% block title %}CASP Reports {{ page_header }}{% endblock title %}
+
+
+{% block report_title %} Casos Activos por Fecha Radicada {% endblock report_title %}
+
+{#{% block form_action %} {{ search_action }} {% endblock form_action %}#}
+
+{% block filter_controls %}
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Filtros</h4>
+      <hr>
+      <div class="form-group">
+        <div class="col-md-4">
+          <label for="date_from">Desde</label>
+          <input type="date" id="date_from" name="date_from" class="form-control small-bootstrap-datetimepicker-widget" value="{{ date_from }}">
+        </div>
+        <div class="col-md-4">
+          <label for="date_to">Hasta</label>
+          <input type="date" id="date_to" name="date_to" class="form-control small-bootstrap-datetimepicker-widget" value="{{ date_to }}">
+        </div>
+        <div class="col-md-4">
+          <label for="case_state_filters">Estado</label>
+          <select id="case_state_filters" name='case_state_filters'>
+            <option value="none">--</option>
+            <option value="all">Todos</option>
+            <option value="active">Activos</option>
+            <option value="inactive">Inactivos</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-12">
+          <button type="submit" style="width: 100%" class="btn btn-grey">Buscar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock filter_controls %}
+
+{% block data_table %}
+  <h4>Casos</h4>
+  <hr>
+  <div>
+    {% if data_table %}
+      {% render_table data_table %}
+    {% else %}
+      <p class="lead">No se encontraron resultados.</p>
+    {% endif %}
+  </div>
+{% endblock data_table %}

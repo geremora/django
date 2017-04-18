@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load django_tables2 %}
+
+{% block title %}Usuario - {{ object.username }}{% endblock title %}
+{% block main %}
+<div class="row row-fluid">
+  <div class="col-md-offset-2 col-md-8">
+    <p class="lead">Usuario: {{ object.username }}</p>
+    <hr>
+    {% if is_update %}
+      <form method="POST">{% csrf_token %}
+        {{ form | bootstrap }}
+        <div>
+          <button type="submit" class="btn btn-grey">Guardar</button>
+          <a href="{% url 'perms-user-detail' object.id %}" class="btn btn-error">Cancelar</a>
+        </div>
+      </form>
+    {% else %}
+      <div class="user-information">
+        <div class="col-md-6">
+          <p><strong>Nombre: </strong> {{ object.get_full_name }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Email: </strong> {{ object.email }}</p>
+        </div>
+      </div>
+      <div class="user-perms">
+        <div class="col-md-12">
+          <p class="lead">Permisos</p>
+          <hr>
+        </div>
+        {% if user_permissions_table %}
+          <div class="col-md-12">
+            <form method="GET" action={% url 'perms-user-detail' object.id %} role="search">
+              <div class='col-md-10'>
+                <div class="form-group">
+                  <input type="text" name="search" class="form-control" placeholder="Filtre los permisos por su nombre" autofocus>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <button class="btn btn-default btn-block">
+                    Buscar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-12">
+            {% render_table user_permissions_table %}
+          </div>
+        {% else %}
+          <h4>El usuario no tiene permisos configurados.</h4>
+        {% endif %}
+      </div>
+      <div>
+        <a href="{% url 'perms-user-update' object.id %}" class="btn btn-grey">Editar</a>
+        <a href="{% url 'perms-user-list' %}" class="btn btn-default">Volver</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock main %}

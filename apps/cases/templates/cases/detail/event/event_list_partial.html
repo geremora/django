@@ -1,0 +1,30 @@
+{% load bootstrap %}
+
+<div class="col-md-12">
+  
+ {% with object.feed as events %}
+            {% for event in events %}
+              {% for item in event.list %}
+                <div class="event-row {{ item.get_object_type|lower }} {{ item.event_type|lower|slugify }}" id="{{ item.get_object_type|lower }}-{{ item.id }}">
+                  {% if forloop.counter == 1 %}
+                    <div class="col-md-2 event-date">
+                      {% if event.grouper|date:"c" == '1970-01-01' %}
+                        Fecha no disponible
+                      {% else %}
+                        {{ event.grouper|date:"M j, o" }}
+                      {% endif %}
+                    </div>
+                  {% else %}
+                    <div class="col-md-2 event-date"></div>
+                  {% endif %}
+
+                  <div class="col-md-10 no-padding event-content-block">
+                    {% include "cases/detail/event/event.html" with case=object%}
+                  </div>
+                </div>
+              {% endfor %}
+            {% endfor %}
+          {% endwith %}
+            
+         
+</div>

@@ -1,0 +1,213 @@
+{% load splitclassname %}
+{% load itemdata %}
+<div class="event-header-row">
+  <div class="col-md-9 event-type">
+    {% with item.get_object_type as object_type  %}
+      {% if object_type == 'IncomingEvent' %}
+        <i class="fa fa-inbox"></i><a href="{% url 'incoming_event_detail' item.id %}"> {{ item }} </a>
+      {% elif object_type == 'OutgoingEvent' %}
+        <i class="fa fa-file"></i><a href="{% url 'outgoing_event_detail' item.id %}"> {{ item }} </a>
+      {% elif object_type == 'ImportedEvent' %}
+        <i class="fa fa-file"></i> {{ item.event_type }}
+      {% elif object_type == 'Document' %}
+        <i class="fa fa-file"></i>
+        <a href="{% url 'document_detail' object.id item.id %}">{{ item }}</a>
+      {% elif object_type == 'Note' %}
+        <i class="fa fa-edit"></i> Nota de {{ item.created_by }}
+        
+      {% elif object_type == 'Meeting' %}
+        <i class="fa fa-calendar"></i>
+        {% if can_change_meetings %}
+          <a href="{% url 'meeting_update' object.id item.id %}">
+              {{ item.date_start|date:"M j, o - g:i A" }} →
+              {{ item.date_end|date:"M j, o - g:i A" }} | {{ item.room }}
+          </a>
+        {% else %}
+          {{ item.date_start|date:"M j, o - g:i A" }} →
+          {{ item.date_end|date:"M j, o - g:i A" }} | {{ item.room }}
+        {% endif %}
+      {% endif %}
+      {% if item.status and item.status.strip %}
+        {% if item.status == "did_happen" %}
+          <div class="event-type-name">{{ object_type|splitclassname }} | <span class="{{  item.status }}">Se celebr&oacute;</span>
+              {% itemdata item %}
+          </div>
+        {% elif item.status == "scheduled" %}
+          <div class="event-type-name">{{ object_type|splitclassname }} | <span class="{{  item.status }}">Pautada</span>
+             
+              {% itemdata item %}
+          
+          </div>
+        {% else %}
+          <div class="event-type-name">{{ object_type|splitclassname }} | <span class="{{  item.status }}">Se cancel&oacute;</span>
+              {% itemdata item %}
+          </div>
+        {% endif %}
+
+      {% else %}
+        <div class="event-type-name">{{ object_type|splitclassname }} 
+            {% itemdata item %} 
+        </div>
+
+      {% endif %}
+    {% endwith %}
+  </div>
+  <div class="col-md-3 event-label">
+    {% if item.get_object_type == 'ImportedEvent' and item.event_type != 'Vista' %}
+      {% if 'info' not in user_groups %}
+        <a href="{% url 'update_imported_event' object.id item.id %}" class="btn btn-warning">Importar</a>
+      {% endif %}
+    {% endif %}
+    {% if item.requires_acceptance %}
+      {% if item.accepted == True %}
+        <span class="label label-success">Ha Lugar</span>
+      {% elif item.accepted == False %}
+        <span class="label label-info">No a Lugar</span>
+      {% else %}
+        <span class="label label-info">No hay decisión</span>
+        {% if change_outgoing_event and item.get_object_type == 'IncomingEvent' %}
+          <a href="{% url 'update_incoming_event_acceptance' object.id item.id %}" class="btn btn-mini">Modificar</a>
+        {% elif change_incoming_event and item.get_object_type == 'OutgoingEvent' %}
+          <a href="{% url 'update_outgoing_event_acceptance' object.id item.id %}" class="btn btn-mini">Modificar</a>
+        {% endif %}
+      {% endif %}
+    {% elif item.document_type %}
+      {{item.document_type }}
+    {% endif %}
+    {% if item.requires_terms %}
+      {% if item.terms_expired %}
+        <span class="label label-danger">Expirado: {{ item.terms_expiration_date|date:"M j, o" }}</span>
+      {% else %}
+        <span class="label label-warning">Expira: {{ item.terms_expiration_date|date:"M j, o" }}</span>
+      {% endif %}
+    {% endif %}
+
+
+  </div>
+</div>
+
+{% if item.notes %}
+  <div class="event-body-row">
+    <div class="col-md-12 event-comments">
+      {{ item.notes }}
+    </div>
+  </div>
+{% endif %}
+
+{% if item.get_object_type == 'Meeting' %}
+  <div class="event-body-row">
+    <div class="col-md-12 event-comments">
+      <strong>Asistencia personas citadas</strong>
+      {% if change_meeting_attendee %}
+        <a href="{% url 'meeting_attendance' object.id item.id %}" class="btn btn-mini">Modificar Asistencia</a>
+      {% endif %}
+      <ul>
+        {% for attendee in item.get_attendees %}
+          <li>
+            {{ attendee.get_name }}
+            {% if attendee.did_show_up == True %}
+              <span class="label label-success">Se presentó</span>
+            {% elif attendee.did_show_up == False %}
+              <span class="label label-important">No se presentó</span>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+      <p><strong>Invitado armado:</strong> {% if item.somebody_armed %}SI{% else %}NO{% endif %}</p>
+    </div>
+  </div>
+{% endif %}
+
+{% if item.comments %}
+  <div class="event-body-row">
+    <div class="col-md-12 event-comments">
+      {{ item.comments }}
+    </div>
+  </div>
+{% elif item.description %}
+  <div class="event-body-row">
+    <div class="col-md-12 event-comments">
+      {{ item.description }}
+    </div>
+  </div>
+{% endif %}
+
+{% if item.attached_file %}
+  <div class="event-files-row">
+    <div class="col-md-12">
+      <a href="{{ item.get_attached_file_url }}" class="btn btn-default">
+        <i class="fa fa-eye"></i> Ver documento
+      </a>
+    </div>
+  </div>
+{% endif %}
+
+{% if item.document_content %}
+  <div class="event-files-row">
+    <div class="col-md-9">
+      <a href="{% url 'preview_outgoing_event_document' object.id item.id %}" class="btn btn-default">
+        <i class="fa fa-eye"></i> Ver documento
+      </a>
+      <a href="{% url 'print_outgoing_event_document' object.id item.id 'print' %}" class="btn btn-default">
+        <i class="fa fa-print"></i> Imprimir
+      </a>
+    </div>
+  </div>
+{% endif %}
+
+
+<div class="event-footer-row">
+
+  {% if item.date_emitted %}
+      <div class="col-md-6 event-notified">
+      <strong>Emitido:</strong> {{ item.date_emitted|date:"M j, o - g:i A"}}
+      <div class="case-event-observed-notes" data-trigger="hover" data-placement="top" title="Notas"></div>
+    </div>
+  {% else %}
+     <div class="col-md-6 event-notified"></div>
+  {% endif %}
+  {% if item.get_object_type == 'IncomingEvent' %}
+   
+    {% if item.date_observed %}
+      <div class="col-md-6 event-observed" title="{{item.observed_notes}}">
+        <strong>Atendido:</strong> {{ item.date_observed|date:"M j, o - g:i A"}}
+        <div class="case-event-observed-notes" data-trigger="hover" data-placement="bottom" title="Notas"></div>
+       
+
+        <div class="case-event-observed-notes"><i class="fa fa-comment"></i> {{item.observed_notes}}</div>
+      </div>
+    {% else %}
+      <div class="col-md-6 event-observed">
+        No se ha sido atendido
+        {% if change_incoming_event %}
+          <a href="{% url 'update_incoming_event_observed' object.id item.id %}" class="btn btn-default">Atender</a>
+        {% endif %}
+      </form>
+      </div>
+    {% endif %}
+  {% else %}
+   <!--  <div class="col-md-6 event-observed"></div> -->
+  {% endif %}
+
+{% if item.get_object_type == 'OutgoingEvent' %}
+
+  {% if item.notification_date %}
+    <div class="col-md-6 event-observed">
+      <strong>Notificado:</strong> {{ item.notification_date|date:"M j, o - g:i A"}}
+      <div class="case-event-observed-notes" data-trigger="hover" data-placement="top" title="Notas"></div>
+    </div>
+  {% else %}
+    {% if item.requires_notification %}
+      <div class="col-md-6 event-observed">
+          No se ha notificado
+          {% if change_outgoing_event %}
+            <a href="{% url 'update_outgoing_event_notified' object.id item.id %}" class="btn btn-default">Notificar</a>
+          {% endif %}
+      </form>
+      </div>
+    {% endif %}
+  {% endif %}
+  {% else %}
+      <!-- <div class="col-md-6 event-notified"></div> -->
+  {% endif %}
+</div>

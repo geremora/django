@@ -1,0 +1,78 @@
+{% extends "reports/report_base.html" %}
+{% load django_tables2 %}
+{% block title %}CASP Reports {{ page_header }}{% endblock title %}
+
+{% block report_title %} Casos por Usuarios {% endblock report_title %}
+
+{% block filter_controls %}
+  <div class="search_controls_row">
+    <h4>Filtros</h4>
+    <hr>
+    <div class="form-group">
+      <div class="col-md-4">
+        <label for="date_from">Desde</label>
+        <input type="date" id="date_from" name="date_from" class="form-control small-bootstrap-datetimepicker-widget" value="{{ date_from }}">
+      </div>
+      <div class="col-md-4">
+        <label for="date_to">Hasta</label>
+        <input type="date" id="date_to" name="date_to" class="form-control small-bootstrap-datetimepicker-widget" value="{{ date_to }}">
+      </div>
+      <div class="col-md-4">
+        <label for="search_case_number">Numero de Caso</label>
+        <input type="text" name="search_case_number" value="{{ search_case_number }}" placeholder="Puede hacer busquedas parciales" class="form-control">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-6">
+        <label for="search_user">Usuarios</label>
+        <select id="search_user" name="search_user">
+          <option value="all">Todos</option>
+          {% for user in users %}
+            {% if user.username == search_user %}
+              <option value="{{user.username}}" selected>{{ user }}</option>
+            {% else %}
+              <option value="{{user.username}}">{{ user }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="case_state">Estado del Caso</label>
+        <select id="case_state" name="case_state">
+          {% if case_state == 'all' %}
+            <option value="all" selected>Todos</option>
+          {% else %}
+            <option value="all">Todos</option>
+          {% endif %}
+          {% if case_state == 'active'%}
+            <option value="active" selected>Activos</option>
+          {% else %}
+            <option value="active">Activos</option>
+          {% endif %}
+          {% if case_state == 'inactive' %}
+            <option value="inactive" selected>Inactivos</option>
+          {% else %}
+            <option value="inactive">Inactivos</option>
+          {% endif %}
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-grey" style="width: 100%">Buscar</button>
+      </div>
+    </div>
+  </div>
+{% endblock filter_controls %}
+
+{% block data_table %}
+  <h4>Casos</h4>
+  <hr>
+  <div>
+    {% if data_table %}
+      {% render_table data_table %}
+    {% else %}
+      <p class="lead">No se encontraron resultados.</p>
+    {% endif %}
+  </div>
+{% endblock data_table %}

@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}{{ object.event_type.name }}{% endblock title %}
+
+{% block main %}
+
+     <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <td><strong>Tipo de evento</strong></td>
+                <td>{{ object.event_type.name }}</td>
+            </tr>
+            <tr>
+                <td><strong>Casos</strong></td>
+                {% for c in object.cases.all %}
+                <td><a href="{% url 'case_detail' c.id %}">{{ c.number }}</a></td>
+
+                {% endfor %}
+            </tr>
+            {% if object.related_event %}
+                <tr>
+                    <td><strong>Relacionado con el evento:</strong></td>
+                
+                    <td>
+                        {% if item.get_object_type == 'IncomingEvent' %}
+
+                            <a href="{% url 'outgoing_event_detail' object.related_event.id %}">{{ object.related_event }}</a>
+                        {% else %}
+                             <a href="{% url 'incoming_event_detail' object.related_event.id %}">{{ object.related_event }}</a>
+                
+                        {% endif %}
+
+                    </td>
+                </tr>
+            {% endif %}
+            {% if object.date_created %}
+                <tr>
+                    <td><strong>Fecha creación</strong></td>
+                    <td>{{ object.date_created }}</td>
+                </tr>
+            {% endif %}
+            {% if contact.date_emitted %}
+                <tr>
+                    <td><strong>Fecha radicado</strong></td>
+                    <td>{{ object.date_emitted }}</td>
+                </tr>
+            {% endif %}
+            {% if object.date_notification %}
+                <tr>
+                    <td><strong>Fecha notificación</strong></td>
+                    <td>{{ object.date_notification }}</td>
+                </tr>
+            {% endif %}
+
+            {% if object.requires_terms %}
+                <tr>
+                    <td><strong>Fecha de vencimiento</strong></td>
+                    <td>{{ object.terms_expiration_date }}
+
+              {% if object.terms_expired %}
+                <span class="label label-danger">Expirado</span>
+              {% else %}
+
+              {% endif %}
+
+              </td>
+                </tr>
+            {% endif %}
+
+            {% if object.date_observed %}
+                <tr>
+                    <td><strong>Fecha atendido</strong></td>
+                    <td>{{ object.date_observed }}</td>
+                </tr>
+            {% endif %}
+            {% if object.observed_notes %}
+                <tr>
+                    <td><strong>Comentarios en la atención ({{object.date_observed}})</strong></td>
+                    <td>{{ object.observed_notes }}</td>
+                </tr>
+            {% endif %}
+            {% if object.generate_by  %}
+                <tr>
+                    <td><strong>Generado por</strong></td>
+                    <td>{{ object.generate_by.get_name }}</td>
+                </tr>
+            {% endif %}
+
+            {% if object.party  %}
+                <tr>
+                    <td><strong>Parte que radica</strong></td>
+                    <td>{{ object.party }}</td>
+                </tr>
+            {% endif %}
+
+
+
+             {% if object.requires_acceptance  %}
+                <tr>
+                    <td><strong>Decisión</strong></td>
+                    {% if object.accepted == True %}
+                        <td>Ha Lugar</td>
+                      {% elif object.accepted == False %}
+                        <td>No a Lugar</td>
+                      {% else %}
+                         <td>No hay decisión
+                            {% if item.get_object_type == 'IncomingEvent' %}
+                            <a href="{% url 'update_incoming_event_acceptance' object.id %}" class="btn btn-mini">Modificar</a>
+                            {% else %}
+                             <a href="{% url 'update_incoming_event_acceptance' object.id %}" class="btn btn-mini"> Modificar</a>
+                
+                            {% endif %}
+
+                        </td>
+                      {% endif %}
+                </tr>
+            {% endif %}
+
+            {% if item.attached_file  %}
+                <tr>
+                    <td><strong>Documento</strong></td>
+                    <td><a href="{{ item.get_attached_file_url }}" class="btn btn-default"> Ver </a></td>
+                </tr>
+            {% endif %}
+
+
+            {% if object.comments %}
+                <tr>
+                    <td><strong>Comentarios</strong></td>
+                    <td>{{ object.comments }}</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table> 
+{% endblock main %}

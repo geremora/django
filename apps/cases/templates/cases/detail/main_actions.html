@@ -1,0 +1,77 @@
+{% load tags %}
+{% if object.state != 'closed' and object.is_main_case %}
+<div class="col-md-12">
+  <div class="cases-main-actions">
+    <div class="col-md-8">
+      <h4>Acciones</h4>
+      <hr>
+      <div class="btn-group">
+        {% if not object.did_confirm_case_type %}
+          <a href="{% url 'case_update_type' object.id %}" class="btn btn-default">
+              <i class="fa fa-asterisk"></i> Modificar tipo caso
+          </a>
+        {% endif %}
+        <a href="{% url 'create_incoming_event' object.id %}" class="btn btn-default">
+          <i class="fa fa-inbox"></i>  Recibir
+        </a>
+        <a href="{% url 'create_outgoing_event' object.id %}" class="btn btn-default">
+          <i class="fa fa-file"></i>  Emitir
+        </a>
+        <a href="{% url 'meeting_create' object.id %}" class="btn btn-default">
+          <i class="fa fa-calendar"></i> Pautar Vista
+        </a>
+        <a href="{% url 'note_create' object.id %}" class="btn btn-default">
+          <i class="fa fa-edit"></i> Crear nota
+        </a>
+        <a href="{% url 'document_create' object.id %}" class="btn btn-default">
+          <i class="fa fa-file-word-o"></i> Crear doc
+        </a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h4>Próximo</h4>
+      <hr>
+        {% if object.mediation  %}
+          <div class="alert alert-warning" style="text-align: center;">EN MEDIACIÓN</div> 
+       {% else %}
+
+          {% for transition in transitions %}
+            
+              {% if transition.name != 'go_merged' %}
+              <div>
+                <a href="#{{ transition.target }}-modal" type="submit" class="btn btn-grey case-transition-button" data-toggle="modal">
+                  {{ transition.custom.label }} <i class="fa fa-arrow-circle-right"></i> 
+                </a>
+              </div>
+
+              <div id="{{ transition.target }}-modal" class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">¿Está seguro(a)?</h4>
+                    </div>
+                    <div class="modal-body">
+                      Está a punto de mover este caso adelante a <strong>{{ transition.custom.label }}</strong>.
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                      <form method="post" action="{% url 'case_detail_transition' object.id transition.target %}" class="case-transition-form">{% csrf_token %}
+                        <button class="btn btn-grey">Si, quiero continuar</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+               {% endif %}
+
+
+  
+          
+          {% endfor %}
+        {% endif %}
+
+      </div>
+    </div>
+  {% endif %}
+</div>

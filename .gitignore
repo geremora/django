@@ -1,0 +1,58 @@
+# Python bytecode:
+*.py[co]
+
+# Packaging files:
+*.egg*
+
+# Editor temp files:
+*.swp
+*~
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.vi
+*.sass-cache
+
+# SQLite3 database files:
+*.db
+
+# Logs:
+*.log
+
+# Foreman environment vars
+.env
+.env.production
+.env.staging
+config.json
+Procfile.local
+
+# Brunch
+node_modules/
+
+# OS or Editor folders
+.DS_Store
+.cache
+.project
+.settings
+.tmproj
+nbproject
+Thumbs.db
+
+media/
+src/
+
+# Brunch folder for temporary files.
+tmp/
+*.js.map
+*.css.map
+config.json
+
+# Pycharm files
+.idea/
+
+# Virtualenv environment
+env/
+venv/

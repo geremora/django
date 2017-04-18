@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% block title %}CASP Reports {{ page_header }}{% endblock title %}
+{% block main %}
+    <section >
+        <div>
+            <div class="report-title">
+                <h4>Informe de Casos Activos no Delegados</h4>
+            </div>
+        </div>
+        <hr />
+    </section>
+    <section id="data">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Núm. Caso</th>
+                    <th>Agencia</th>
+                    <th>Materia</th>
+                    <th>Núm. Apelantes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rec in recs %}
+                <tr>
+                    <td>{{ rec.num_caso }}</td>
+                    <td>{{ rec.agencia }}</td>
+                    <td>{{ rec.materia }}</td>
+                    <td>{{ rec.num_apelantes }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total de Casos</th>
+                    <th>{{ recs_totals.total_casos }}</th>
+                    <th>Total de Apelantes</th>
+                    <th>{{ recs_totals.total_apelantes }}</th>
+                </tr>
+            </tfoot>
+        </table>
+        </section>
+        <section>
+        <form method="post" action="{%  url 'export_csv' %}?type=ord-rad-ras-month">
+            {%  csrf_token %}
+            <input type="hidden" name="recs" value="{{ recs }}">
+            <input type="hidden" name="recs_totals" value="{{ recs_totals }}">
+            <div id="export-btn"><input type="submit" class="btn btn-grey"></div>
+        </form>
+    </section>
+{% endblock main %}

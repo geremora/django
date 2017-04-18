@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load django_tables2 %}
+{% block title %}Usuarios{% endblock title %}
+{% block main %}
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Lista de Usuarios</h3>
+      <hr>
+      <div class="col-md-12">
+        <form method="GET" action={% url 'perms-user-list' %} role="search">
+          <div class="col-md-10">
+            <div class="form-group">
+              <input placeholder="Filtre el listado entrado un termino" type="text" name="search" class="full-width form-control" autofocus>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <button class="btn btn-default btn-block">Buscar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    {% if user_table %}
+      <div class="col-md-12">
+        {% render_table user_table %}
+      </div>
+    {% else %}
+      <p class="lead">No se encontraron usuarios. Si esto es un error favor de notificarlo a su supervisor.</p>
+    {% endif %}
+    </div>
+  </div>
+{% endblock main %}

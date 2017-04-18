@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load django_tables2 %}
+{% block title %}CASP Reports {{ page_header }}{% endblock title %}
+{% block main %}
+  <div id="report-header">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="text-center">
+          <h4>Estado Libre Asociado de Puerto Rico</h4>
+          <h4>Comision Apelativa del Sistema de Administración de Recursos Humanos</h4>
+          <h4>{% block report_title %} {% endblock report_title %}</h4>
+        </div>
+        <div class="col-md-offset-2 col-md-8">
+          <div class="col-md-12">
+            <form method="GET" class="form-horizontal" action="{% block form_action %}{% endblock form_action %}">
+              {% block filter_controls %}{% endblock filter_controls %}
+            </form>
+          </div>
+          <div class="col-md-12">
+            <form method="post">{% csrf_token %}
+              <div class="form-group">
+                <button type="submit" style="width: 100%;" class="btn btn-default">
+                  Descargar
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-12">
+            {% block data_table %}{% endblock data_table %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock main %}

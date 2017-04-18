@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load bootstrap_calendar %}
+{% block title %}Calendario Vistas{% endblock title %}
+{% block custom-css %}
+  {% bootstrap_calendar_css %}
+{% endblock %}
+{% block main %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="text-center">
+      <h1>Calendario Vistas</h1>
+    </div>
+    <hr>
+    <div class="page-header">
+      <h3></h3>
+    </div>
+    <div class="clear-fix">
+    </div>
+    <div class="legend--wrapper pull-right">
+      <ul class="legend">
+        <li>
+          <div class="square legend-scheduled"></div>
+          <div class="text">Coordinado</div>
+        </li>
+        <li>
+          <div class="square legend-passed"></div>
+          <div class="text">Ocurrido</div>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group">
+        {% bootstrap_calendar '' %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block customjs %}
+    {% bootstrap_calendar_js language='es-ES' %}
+    {% bootstrap_calendar_init language='es-ES' events_url=events_url view='day' %}
+{% endblock customjs %}

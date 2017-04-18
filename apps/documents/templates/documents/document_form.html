@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% block title %}{{ case.number }}: Crear Documento {% endblock title %}
+{% block main %}
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <h3><a href="{% url 'case_detail' case.id  %}">{{ case.number }}</a>: Crear Documento</h3>
+      <hr>
+      {% if form.errors %}
+          <div class="alert alert-danger">
+              <strong>Ups!</strong> Errores de validación en el formulario
+          </div>
+      {% endif %}
+      <div class="col-md-12">
+        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+            {{ form|bootstrap }}
+            <button type="submit" class="btn btn-grey">Generar</button>
+            <a href="{% url 'case_detail' case.id %}" class="btn btn-link">Cancelar</a>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock main %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Contactos{% endblock title %}
+{% block main %}
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="page-actions-heading">Contactos</h3>
+      {% if perms.contacts.add_contact %}
+        <a href="{% url 'contact_create' %}" class="btn btn-grey pull-right">Crear contacto</a>
+      {% endif %}
+      <hr>
+      <div class="col-md-12">
+        <form class="form-search" method="GET" action="{% url 'contact_list' %}">
+          <div class="col-md-10">
+            <div class="form-group">
+              <input name="search" value="{{ search_query }}" type="text" class="form-control">
+              {% if c_type %}
+                <input type="hidden" name="type" value="{{ c_type }}">
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <button type="submit" class="btn btn-default btn-block">Buscar</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="col-md-9">
+          {% if search_query and c_type %}
+            <p>Mostrando contactos de tipo
+              {% for ct in contact_types %}
+                {% if ct.pk == c_type  %}
+                  "<strong>{{ ct.name }}</strong>"
+                {% endif %}
+              {% endfor %}
+             con el texto "<strong>{{ search_query }}</strong>" - <a href="{% url 'contact_list' %}">Ver todos</a></p>
+             <hr>
+          {% elif search_query %}
+              <p>Mostrando todos los contactos con el texto "<strong>{{ search_query }}</strong>" - <a href="{% url 'contact_list' %}">Ver todos</a></p><hr>
+          {% elif c_type %}
+            <p>Mostrando contactos de tipo
+              {% for ct in contact_types %}
+                {% if ct.pk == c_type  %}
+                  "<strong>{{ ct.name }}</strong>" - <a href="{% url 'contact_list' %}">Ver todos</a></p><hr>
+                {% endif %}
+              {% endfor %}
+          {% endif %}
+          {% if object_list %}
+            <table class="table table-striped">
+              <thead>
+                <th><a href="{% url 'contact_list' %}?sort=last_name">Nombre</a></th>
+                <th>Tipo</th>
+                <th>Teléfono 1</th>
+                <th><a href="{% url 'contact_list' %}?sort=email">Email</th>
+              </thead>
+              <tbody>
+                {% for contact in object_list %}
+                <tr>
+                  <td><a href="{% url 'contact_detail' contact.id %}">{{ contact.get_name }}</a></td>
+                  <td>{{ contact.contact_type.name }}</td>
+                  <td>{{ contact.phone1|default:"n/a" }}</td>
+                  <td>{{ contact.email|default:"n/a" }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p class="lead">No se encontraron resultados.</p>
+          {% endif %}
+        </div>
+        <div class="col-md-3">
+          <h6>FILTRAR CONTACTOS</h6>
+          <p class="page-filter-title">Por tipo</p>
+          <ul class="page-filter-list">
+            <li class="page-filter-item"><a href="{% url 'contact_list' %}{% if search_query %}?search={{ search_query }}{% endif %}">All</a></li>
+            {% for ct in contact_types %}
+              <li class="page-filter-item"><a href="{% url 'contact_list' %}?type={{ ct.id }}{% if search_query %}&search={{ search_query }}{% endif %}">{{ ct.name }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <!-- Pagination -->
+        {% load paginator %}{% paginator 3 %}
+      </div>
+    </div>
+  </div>
+{% endblock main %}

@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<div class="{{ css_classes }}">
+  <div class="btn-group">
+    <button class="btn btn-default" data-calendar-nav="prev"> {% trans 'Prev' %} </button>
+    <button class="btn btn-default" data-calendar-nav="today">Hoy </button>
+    <button class="btn btn-default" data-calendar-nav="next">{% trans 'Prox' %}</button>
+  </div>
+  <div class="btn-group">
+ <!--    <button class="btn btn-grey" data-calendar-view="year">{% trans 'Año' %}</button> -->
+    <button class="btn btn-grey active" data-calendar-view="month">{% trans 'Mes' %}</button>
+    <button class="btn btn-grey " data-calendar-view="week">{% trans 'Semana' %}</button>
+    <button class="btn btn-grey " data-calendar-view="day">{% trans 'Día' %}</button>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    {% include "includes/styles.html" %}
+    <title>Trámite {{ object.number }}</title>
+</head>
+<body>
+    <div class="container documents-print-document">
+        {% block content %}
+            {% include "agency_header.html" %}
+            <h2>{{ object.number }}</h2>
+            {% include "cases/detail/header_information.html" %}
+            <hr>
+            <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="">
+
+                    <!-- Events -->
+                    <div class="tab-pane" id="events">
+                        <div class="row">
+                            <div class="span12">
+                                <a href="{% url 'case_print' object.id %}" class="btn pull-right"><i class="fa fa-print"></i> Imprimir tramite</a><br><br><br>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                        {% with feed as events %}
+                            {% for event in events %}
+                                {% for item in event.list %}
+
+                                    <div class="row event-row {{ item.get_object_type|lower }} {{ item.event_type|lower|slugify }}" id="{{ item.get_object_type|lower }}-{{ item.id }}">
+
+                                        {% if forloop.counter == 1 %}
+                                            <div class="span2 event-date">
+                                                {% if event.grouper|date:"c" == '1970-01-01' %}
+                                                    Fecha no disponible
+                                                {% else %}
+                                                    {{ event.grouper|date:"M j, o" }}
+                                                {% endif %}
+                                            </div>
+                                        {% else %}
+                                            <div class="span2 event-date"></div>
+                                        {% endif %}
+
+                                        <div class="span9 event-content-block">
+                                            {% include "cases/detail/event/event.html" %}
+                                        </div>
+
+                                    </div>
+
+                                {% endfor %}
+                            {% endfor %}
+                        {% endwith %}
+                        </div>
+                        <!-- Case created event -->
+                        <div class="col-md-12">
+                            <div class="row event-row case-created-event" id="CaseCreated-0">
+                                <div class="span2 event-date">{{ object.date_created|date:"M j, o" }}</div>
+                                <div class="span9 event-content-block">
+                                    <div class="row event-header-row">
+                                        <div class="span7 event-type">Caso abierto</div>
+                                        <div class="span2 event-label"></div>
+                                    </div>
+                                    <div class="row event-body-row">
+                                        <div class="span9 event-comments">
+                                            Se entró caso en el sitema
+                                        </div>
+                                    </div>
+                                    <div class="row event-footer-row">
+                                        <div class="span4 event-time">
+                                            <strong>{{ object.date_created|date:"g:i A" }}</strong> por <strong>{{ object.created_by.get_full_name }}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                           
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        {% endblock content %}
+    </div>
+    <script>
+        window.print();
+        window.history.back();
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% block title %}
+    Crear caso
+{% endblock title %}
+
+{% block main %}
+  <div class="row page-actions">
+    <div class="col-md-offset-3 col-md-6">
+      <h3 class="page-actions-heading">Crear caso</h3>
+      <hr>
+      <div class="col-md-12">
+        <form method="POST" class="form-horizontal">{% csrf_token %}
+          <div class="col-md-12">
+            {% for field in form %}
+              <div class="form-group">
+                <label for="{{field.name}}">{{field.label}}</label>
+                {{field}}
+                <label>{{ field.errors }}</label>
+              </div>
+            {% endfor %}
+            <div class="form-group">
+              {% if is_update %}
+                <button type="submit" class="btn btn-grey">Guardar</button>
+                <a href="{% url 'case_detail' object.id %}" class="btn btn-link">Cancelar</a>
+              {% else %}
+                <button type="submit" class="btn btn-grey">Guardar</button>
+                <a href="{% url 'case_list' %}" class="btn btn-link">Cancelar</a>
+              {% endif %}
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock main %}

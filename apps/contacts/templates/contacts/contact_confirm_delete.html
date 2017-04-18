@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Estás seguro?{% endblock title %}
+
+{% block main %}
+    <div class="row page-actions page-actions-contacts-list">
+        <div class="span12 page-actions-left">
+            <h3 class="page-actions-heading">Estás seguro?</h3>
+        </div>
+    </div>
+    <div class="row contact-details-row-wrapper">
+        <div class="span12 alert alert-error">
+            Está a punto de borrar permanentemente <strong>{{ object.get_name }}</strong>
+        </div>
+        <div class="span12">
+            <form method="POST">{% csrf_token %}
+                <button type="submit" class="btn btn-danger">Sí, borrar</button>
+                <a href="{% url 'contact_list' %}" class="btn btn-link">Cancelar</a>
+            </form>
+        </div>
+    </div>
+{% endblock main %}

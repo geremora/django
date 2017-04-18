@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% block title %}Reporte Casos {{ page_header }}{% endblock title %}
+{% block main %}
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                {% for vals in report_headers.itervalues %}
+                    {% for val in vals %}
+                        <th>{{ val }}</th>
+                    {% endfor %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>Ley</th>
+                <th>Materia</th>
+                {% for year in years %}
+                    <th>{{ year }}</th>
+                    <th>{{ year }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th rowspan="20">
+                    Ley Núm. 184 <BR />
+                    Resoluciones/Decisiones Finales
+                </th>
+            </tr>
+            {% for rec in recs %}
+                <tr>
+                    <td>
+                        {{rec.materia}}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock main %}

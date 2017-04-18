@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% block title %}
+    Reportar error o solicitar "feature"
+{% endblock title %}
+
+{% block main %}
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <h3 class="page-actions-heading">Reportar error o solicitar "feature"</h3>
+      <hr>
+      <div class='col-md-12'>
+        <form method="POST" class="form-horizontal">{% csrf_token %}
+          <div class="col-md-12">
+            {{ form|bootstrap }}
+            <div class="form-group">
+              <button type="submit" class="btn btn-grey">Guardar</button>
+              <a href="{% url 'case_list' %}" class="btn btn-link">Cancelar</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock main %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% load bootstrap %}
+{% load widget_tweaks %}
+
+{% block title %}
+  {% if is_update %}
+    Editar {{ object.get_name }}
+  {% else %}
+    Crear contacto
+  {% endif %}
+{% endblock title %}
+
+{% block main %}
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      {% if is_update %}
+        <h3 class="page-actions-heading">Modificar {{ object.get_name }}</h3>
+      {% else %}
+        <h3 class="page-actions-heading">Crear contacto</h3>
+      {% endif %}
+      <hr>
+      <form method="POST" class="form-horizontal">{% csrf_token %}
+        <div class="col-md-12">
+          {% for field in form %}
+            <div class="form-group">
+              <label for="{{field.name}}">{{field.label}}</label>
+              <div>
+                {% if field.name != 'related_instutution' and field.name != 'contact_type' %}
+                  {{field|add_class:"form-control"}}
+                {% else %}
+                  {{field}}
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+          <hr>
+          <div class='form-group'>
+            <button type="submit" class="btn btn-grey">Guardar</button>
+            {% if object %}
+              <a href="{% url 'contact_detail' object.id %}" class="btn btn-link">Cancelar</a>
+            {% else %}
+              <a href="{% url 'contact_list' %}" class="btn btn-link">Cancelar</a>
+            {% endif %}
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock main %}

@@ -1,0 +1,351 @@
+
+[
+{
+    "pk": 2,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "AO",
+        "name": "Arbitraje Obligatorio",
+        "description": "",
+        "mediation_allowed":"False",
+        "case_category": [
+            22
+        ]
+    }
+},
+{
+    "pk": 3,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "AQ",
+        "name": "Solicitud de Arbitraje",
+        "description": "",
+        "case_category": [
+            1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+        ]
+    }
+},
+{
+    "pk": 4,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "PR",
+        "name": "Procedimiento de Representación",
+        "description": "",
+        "mediation_allowed":"False",
+        "case_category": [
+            22
+        ]
+    }
+},
+{
+    "pk": 5,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "CA",
+        "name": "Práctica Ilícita contra Agencia",
+        "description": "",
+        "case_category": [
+            1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+        ]
+    }
+},
+{
+    "pk": 6,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "CO",
+        "name": "Práctica Ilícita contra Organización Obrera",
+        "description": "",
+        "case_category": [
+            1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+        ]
+    }
+},
+{
+    "pk": 7,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "PE",
+        "name": "Procedimiento Especial",
+        "description": "",
+        "case_category": [
+            1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+        ]
+    }
+},
+{
+    "pk": 8,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "PD",
+        "name": "Petición de Descertificación",
+        "description": "",
+        "case_category": [
+            22
+        ]
+    }
+},
+{
+    "pk": 9,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "SD",
+        "name": "Solicitud de Descertificación",
+        "description": "",
+        "case_category": [
+            22
+        ]
+    }
+},
+{
+    "pk": 10,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "MU",
+        "name": "Procedimientos de Multas",
+        "description": "",
+        "case_category": [
+            22
+        ]
+    }
+},
+{
+    "pk": 11,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "CU",
+        "name": "Solicitud de Clarificación de Unidad Apropiada",
+        "description": "",
+        "mediation_allowed":"False",
+        "case_category": [
+            22
+        ]
+    }
+},
+{
+    "pk": 12,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "EC",
+        "name": "Solicitud de Enmienda a Certificación",
+        "description": "",
+        "mediation_allowed":"False",
+        "case_category": [
+            22
+        ]
+    }
+},
+{
+    "pk": 13,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "SA",
+        "name": "Solicitud de Apelación-Agencia",
+        "description": "",
+        "case_category": [
+            1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+        ]
+    }
+},
+{
+    "pk": 14,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "SM",
+        "name": "Solicitud de Apelación-Municipio",
+        "description": "",
+        "case_category": [
+            1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+        ]
+    }
+},
+{
+    "pk": 15,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "CD",
+        "name": "Ley Núm. 333",
+        "description": "",
+        "case_category": [
+            1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+        ]
+    }
+},
+{
+    "pk": 1,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Traslado",
+        "description": ""
+    }
+},
+{
+    "pk": 2,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Despido",
+        "description": ""
+    }
+},
+{
+    "pk": 3,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Retención",
+        "description": ""
+    }
+},
+{
+    "pk": 4,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Pendiente de materia",
+        "description": ""
+    }
+},
+{
+    "pk": 5,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Clasificación de puestos de materia",
+        "description": ""
+    }
+},
+{
+    "pk": 6,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Descenso",
+        "description": ""
+    }
+},
+{
+    "pk": 7,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Discrimen",
+        "description": ""
+    }
+},
+{
+    "pk": 8,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Investigación",
+        "description": ""
+    }
+},
+{
+    "pk": 9,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Jornada de Trabajo y Asistencia",
+        "description": ""
+    }
+},
+{
+    "pk": 10,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Ley Núm. 89-2016",
+        "description": ""
+    }
+},
+{
+    "pk": 11,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Medidas Disciplinarias",
+        "description": ""
+    }
+},
+{
+    "pk": 12,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Reclutamiento y Selección",
+        "description": ""
+    }
+},
+{
+    "pk": 13,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Retención - Ordenanza",
+        "description": ""
+    }
+},
+{
+    "pk": 14,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Retribución",
+        "description": ""
+    }
+},
+{
+    "pk": 15,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Retribución - Educación",
+        "description": ""
+    }
+},
+{
+    "pk": 16,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Retribución - Ordenanza",
+        "description": ""
+    }
+},
+{
+    "pk": 17,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Retribución - Policia",
+        "description": ""
+    }
+},
+{
+    "pk": 18,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Retribución - Trienio",
+        "description": ""
+    }
+},
+{
+    "pk": 19,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Traslados - Ordenanza",
+        "description": ""
+    }
+},
+{
+    "pk": 20,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Traslados - Ordenanza",
+        "description": ""
+    }
+},
+{
+    "pk": 21,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Apelaciones",
+        "description": ""
+    }
+},
+{
+    "pk": 22,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Igual a tipo de caso",
+        "description": ""
+    }
+}
+]

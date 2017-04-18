@@ -1,0 +1,75 @@
+{% load tags %}
+<div class="col-md-6">
+  <dl class="dl-horizontal">
+    {% if object.old_number %}
+        <dt>Num Caso Anterior</dt>
+        <dd>{{ object.old_number }}</dd>
+    {% endif %}
+    <dt>Tipo de caso</dt>
+    <dd>{{ object.case_type.name }} - {{ object.case_type.code }}</dd>
+    <dt>Asignado a</dt>
+    <dd>
+      {{ object.assigned_user.get_full_name|default:"--" }}
+      {% if can_change_assigned_user and object.state != 'closed' and object.is_main_case%}
+          [<a href="{% url 'case_update_assigned_user' object.id %}">Cambiar</a>]
+      {% endif %}
+    </dd>
+    <dt>Tiene expediente</dt>
+    <dd>
+      {{ object.record_holder.get_full_name }}
+      {% if can_change_record_holder_case and object.state != 'closed' and object.is_main_case%}
+          [<a href="{% url 'case_update_record_view' object.id %}">Cambiar</a>]
+      {% endif %}
+    </dd>
+    <dt>Descripción</dt>
+    <dd>{{ object.description|default:"--" }}</dd>
+    <dt>Materia</dt>
+    <dd>{{ object.case_category.name }}</dd>
+    <dt>Radicado en</dt>
+    <dd>{{ object.date_accepted}}</dd>
+    {% if object.state == 'closed' %}
+        <dt>Cerrado en</dt>
+        <dd>{{ object.date_closed }}
+        {% if can_change_date_closed and object.state == 'closed' %}
+          [<a href="{% url 'change_date_closed' object.id %}">Cambiar</a>]
+        {% endif %}
+        </dd>
+    {% endif %}
+
+   
+  </dl>
+</div>
+<div class="col-md-6">
+  <dl class="dl-horizontal">
+    <dt>Status</dt>
+    <dd>{{ object.pretty_state_name|upper }}</dd>
+    {% if object.defendant %}
+      <dt>Promovido</dt>
+      <dd >
+        <a class="{% if object.get_defendant_contact_role.active == False %}contact-case-role-inactive{% endif %}" href="{% url 'contact_detail' object.defendant.id %}">{{object.get_defendant_contact_role.contact.get_name}}</a>
+         {% if object.container.get_count_extra_defendants > 0 %}
+           +  {{object.container.get_count_extra_defendants}}
+         {% endif %}
+      </dd>
+    {% endif %}
+    {% if object.plaintiff %}
+      <dt>Promovente</dt>
+      <dd >
+        <a class="{% if object.get_plaintiff_contact_role.active == False %}contact-case-role-inactive{% endif %}"href="{% url 'contact_detail' object.plaintiff.id %}">{{object.get_plaintiff_contact_role.contact.get_name }}</a>
+         {% if object.container.get_count_extra_plaintiffs > 0 %}
+           +  {{object.container.get_count_extra_plaintiffs}}
+         {% endif %}
+
+       </dd>
+    {% endif %}
+    {% if object.contacts %}
+      <dt>Otros contactos</dt>
+      {% for cr in object.get_contacts_role_without_main_contacts %}
+        <dd class="{% if cr.active == False %}contact-case-role-inactive{% endif %}">
+          <a href="{% url 'contact_detail' cr.contact.id %}">{{ cr.contact.get_name }}</a>  
+            <span>({{ cr.get_name }})</span>
+        </dd>
+      {% endfor %}
+    {% endif %}
+  </dl>
+</div>

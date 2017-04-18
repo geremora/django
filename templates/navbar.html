@@ -1,0 +1,83 @@
+{% load tags %}
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">CASP</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+         {% url 'case_list' as case_list %}
+         {% url 'meeting_calendar' as meeting_calendar %}
+         {% url 'contact_list' as contact_list %}
+         {% url 'profile_detail' as profile_detail %}
+         {% url 'bug_create' as bug_create %}
+         {% url 'perms-user-list' as perms_user_list %}
+
+         <li class="{% active request case_list %}">
+             <a href="{{ case_list }}" class="main-navigation-item"><i class="fa fa-briefcase main-navigation-icon"></i>Casos</a>
+         </li>
+
+         <li class="{% active request meeting_calendar %}">
+             <a href="{{ meeting_calendar }}" class="main-navigation-item"><i class="fa fa-calendar main-navigation-icon"></i>Calendario Vistas</a>
+         </li>
+
+         <li class="{% active request contact_list %}">
+             <a class="main-navigation-item" href="{{ contact_list }}"><i class="fa fa-book main-navigation-icon"></i>Contactos</a>
+         </li>
+
+         {% if user.is_superuser %}
+           <li class="dropdown">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdownMenu1" role="button" aria-expanded="false">
+               <i class="fa fa-list main-navigation-icon"></i>Reportes <span class="caret"></span>
+             </a>
+             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+             {#<li><a href="{% url 'case_reports' %}?report_type=active">Casos Activos por Mes</a></li>#}
+             {#<li><a href="{% url 'case_reports' %}?report_type=resolved">Casos Resueltos por Mes</a></li>#}
+             {#<li><a href="{% url 'case_reports' %}">Casos Radicados por Materia</a></li>#}
+             {#TODO: Fix this report ASAP#}
+             {#<li><a href="{% url 'global_stats' %}">Informe Estadisticas Globales</a></li>#}
+               <li><a href="{% url 'ord_ras_res_stats' %}"><i class="fa fa-list-alt main-navigation-icon"></i>Informe Ordenes, Radicaciones, Resoluciones</a> </li>
+               <li><a href="{% url 'active_cases_by_agency' %}"><i class="fa fa-list-alt main-navigation-icon"></i>Informe de Casos por Agencias</a></li>
+               <li><a href="{% url 'active_cases_by_created_date' %}"><i class="fa fa-list-alt main-navigation-icon"></i>Informe Casos Activos por Fecha Radicado</a></li>
+               <li><a href="{% url 'active_cases_by_case_category' %}"><i class="fa fa-list-alt main-navigation-icon"></i>Informe Casos Activos por Materia</a></li>
+               <li><a href="{% url 'case_by_users' %}"><i class="fa fa-list-alt main-navigation-icon"></i>Informe Casos por Usuarios</a></li>
+             </ul>
+           </li>
+         {% endif %}
+         <li class="{% active request profile_detail %}">
+           <a href="{{ profile_detail }}" class="main-navigation-item"><i class="fa fa-user main-navigation-icon"></i>Tu perfil</a>
+         </li>
+         {% if user.is_superuser %}
+             <li class="{% active request perms_user_list %}">
+                 <a href="{{ perms_user_list }}" class="main-navigation-item"><i class="fa fa-lock main-navigation-icon"></i>Permisos</a>
+             </li>
+         {% else %}
+             <li>
+                 <a href="{% url 'perms-user-detail' user.id %} " class="main-navigation-item"><i class="fa fa-lock main-navigation-icon"></i>Permisos</a>
+             </li>
+         {% endif %}
+         <li class="{% active request bug_create %}">
+           <a href="{{ bug_create }}" class="main-navigation-item"><i class="fa fa-exclamation-circle main-navigation-icon"></i>Reportar Error</a>
+         </li>
+
+         <li>
+           <a href="{% url 'logout' %}" class="main-navigation-item"><i class="fa fa-sign-out main-navigation-icon"></i>Logout</a>
+         </li>
+       {% else %}
+         <li>
+           <a href="{% url 'login' %}" class="main-navigation-item"><i class="fa fa-sign-in main-navigation-icon"></i>Login</a>
+         </li>
+       {% endif %}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

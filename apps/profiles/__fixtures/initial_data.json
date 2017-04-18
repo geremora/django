@@ -1,0 +1,21 @@
+[
+{
+    "pk": 1, 
+    "model": "profiles.caspuser", 
+    "fields": {
+        "username": "admin", 
+        "first_name": "Adminstrador", 
+        "last_name": "del Sistema", 
+        "phone": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2013-02-20T15:47:47.614Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$jOJWwnayTStJ$29Ly77AzfonCygtNwdNPuQPoyebGntnYb+yczwCpxno=", 
+        "email": "a@example.com", 
+        "date_joined": "2013-02-01T20:38:32Z"
+    }
+}
+]

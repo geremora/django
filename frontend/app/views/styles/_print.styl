@@ -1,0 +1,21 @@
+@media print
+    body
+        color black !important
+        background white
+
+    a
+        color black !important
+        text-decoration none !important
+
+    a[href]:after
+        content: none !important
+
+    .event-content-block
+        page-break-after always
+        page-break-inside avoid
+        background-color transparent
+        border 1px solid black !important
+        float right
+
+    .event-header-row
+        border-bottom 1px solid black !important

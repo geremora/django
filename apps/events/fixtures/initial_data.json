@@ -1,0 +1,1129 @@
+[
+{
+    "pk": 62,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Contestaci\u00f3n a la Solicitud de Arbitraje",
+        "description": "La agencia contesta lo alegado en la solicitud de arbitraje.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False"
+    }
+},
+{
+    "pk": 63,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Memorando de derecho",
+        "description": "También se le llama: Alegato.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False"
+    }
+},
+{
+    "pk": 64,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Resoluci\u00f3n",
+        "description": "Escritos emitidos por los tribunales, resolviendo controversias interlocutorias, otorgando término para cumplimiento de ordenes o declarando No Ha Lugar reconsideraciones presentadas por la parte perdidosa.",
+        "allowedCaseClosed":"True",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"False",
+        "isPublic":"False"
+    }
+},
+{
+    "pk": 65,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Sentencia",
+        "description": "Determinación final de un tribunal.",
+        "allowedCaseClosed":"True",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"False",
+        "isPublic":"False"
+    }
+},
+{
+    "pk": 66,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Solicitud de Reapertura de Caso",
+        "description": "Solicita que se reabra una caso para que se cite a una vista o se reconsidere la decision de cierre administrativo o laudo.",
+        "allowedCaseClosed":"True",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 4,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Cambio de fecha de vista",
+        "description": "Luego de notificar el caso y antes de la vista. Suspende o cambia la fecha de la vista. Tambien se le puede llamar: Suspensi\u00f3n, transferencia, paralizaci\u00f3n.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 5,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n para Cambio de representaci\u00f3n",
+        "description": "Cambio en la representaci\u00f3n",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 6,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Cumplimiento de orden",
+        "description": "Luego de la orden del Interventor/CASP",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 7,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n Informativa",
+        "description": "Informa a la CASP de algo",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 8,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Desestimiento",
+        "description": "Termina el caso",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 9,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Pr\u00f3rroga",
+        "description": "Solicita extenci\u00f3n de un t\u00e9rmino reglamentario o dispositivo.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True"
+    }
+},
+{
+    "pk": 10,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Estipulaci\u00f3n",
+        "description": "Finaliza controversia o parte de ella.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+
+    }
+},
+{
+    "pk": 11,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Reconsideraci\u00f3n",
+        "description": "Solicita que se reconsidere la decisi\u00f3n de la CASP en un caso cerrado con perjuicio que no sea por Laudo.",
+        "allowedCaseClosed":"True",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 12,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Enmienda de Laudo",
+        "description": "Solita que se corrija error de redacci\u00f3n en Laudo o que se reconsidere la determinaci\u00f3n del Interventor Neutral.",
+        "allowedCaseClosed":"True",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 13,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Solicitud de documentos",
+        "description": "Solicita que se produzcan documentos en la vista.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 14,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Citaci\u00f3n",
+        "description": "Solicita que se citen testigos en la vista.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 15,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Oposici\u00f3n",
+        "description": "Oponerse a una Moci\u00f3n.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 16,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n Sumaria",
+        "description": "Que no se celebre la vista y que se resuelva con los documentos sometidos hasta el momento.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 17,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Solicitud de documentos de la CASP",
+        "description": "Que la CASP provea documentos o grabacioness que tiene en su poder.",
+        "allowedCaseClosed":"True",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 18,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Solicitud de Vista",
+        "description": "Se se\u00f1ale fecha para una vista.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 19,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Consolidaci\u00f3n",
+        "description": "",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 20,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Desconsolidaci\u00f3n",
+        "description": "",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 21,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Recusaci\u00f3n",
+        "description": "",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 22,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Inhibici\u00f3n",
+        "description": "",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+
+    }
+},
+{
+    "pk": 23,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Solicitud de Mediaci\u00f3n",
+        "description": "",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 24,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Solicitud de Conferencia con Antelaci\u00f3n a la vista",
+        "description": "",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 25,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "in",
+        "name": "Moci\u00f3n de Solicitud de Descubrimiento de Prueba",
+        "description": "",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "requires_generate_by":"True",
+        "requires_parties":"True"
+    }
+},
+{
+    "pk": 27,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [],
+        "direction": "in",
+        "name": "Transici\u00f3n de status",
+        "description": "",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"False"
+    }
+},
+{
+    "pk": 29,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Notificaci\u00f3n de solicitud de arbitraje",
+        "description": "Notificar la radicaci\u00f3n de la Solicitud de Arbitraje, la fecha de la vista y el interventor designado",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 30,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Notificaci\u00f3n de enmienda",
+        "description": "",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 31,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Carta de status",
+        "description": "Notificar el status del caso a la parte que interesa.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 32,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Carta denegando solicitud de reapertura",
+        "description": "Luego de resuelto el caso y que se ha solicitado reapertura",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 33,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Notificaci\u00f3n de Vista",
+        "description": "Informarle a las partes de la nueva fecha y hora de la vista.",
+        "allowedCaseClosed":"True",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 34,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Notificaci\u00f3n de sesi\u00f3n de mediaci\u00f3n",
+        "description": "Informarle a las partes la fecha y hora de la sesion.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 35,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Mostrar Causa",
+        "description": "La parte presente razones por su incomparecencia a la vista",
+        "allowedCaseClosed":"False",
+        "requires_terms":"True",
+        "requires_acceptance":"False",
+        "requires_notification":"True",
+        "amount_days_terms":20
+    }
+},
+{
+    "pk": 36,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Aceptaci\u00f3n de representaci\u00f3n Legal",
+        "description": "Aceptar el nuevo representante legal.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True",
+        "amount_days_terms":20
+    }
+},
+{
+    "pk": 37,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Aceptaci\u00f3n renuncia de representaci\u00f3n Legal",
+        "description": "Aceptar la renuncia del representante legal.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 38,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Cierre Administrativo",
+        "description": "Cuando se ha dado un termino a la parte querellante para que muestre causa y no cumple.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 39,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Cierre por Desistimiento",
+        "description": "Cerrar con o sin perjuicio el caso",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 40,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Cierre por Acuerdo",
+        "description": "Cerrar con perjuicio el caso",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 41,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Consolidación",
+        "description": "Agrupar dos o mas casos para fines de vista y por economia procesal.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 42,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Desconsolidación",
+        "description": "Separar dos o mas casos anteriormente consolidados.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 43,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Reasignaci\u00f3n de Casos",
+        "description": "Asignar a otro interventor el caso para continuar con procedimientos o emitir laudo.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 44,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Orden de Reabrir Caso",
+        "description": "Activar (reabrir) un caso cerrado por orden del Tribunal o por determinacion de Directora",
+        "allowedCaseClosed":"True",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 45,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Termino para Alegatos",
+        "description": "Informar el termino que tienen las partes para presentar alegatos",
+        "allowedCaseClosed":"False",
+        "requires_terms":"True",
+        "requires_acceptance":"False",
+        "requires_notification":"True",
+        "amount_days_terms":20
+    }
+},
+{
+    "pk": 46,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Extensi\u00f3n de terminos",
+        "description": "Informar el termino adicional que tienen las partes para presentar alegatos",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 47,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Nunc Pro Tunc",
+        "description": "Luego de que se emite el laudo aunque no sea advertido el error por una de las partes.",
+        "allowedCaseClosed":"True",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 48,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Interlocutoria",
+        "description": "Resolver algun planteamiento en derecho presentado por una parte por lo general sobre jurisdiccion o descubrimiento de prueba. Si es de jurisdiccion se informa que se posee jurisdiccion.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 50,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Notificaci\u00f3n de Panel de Arbitros",
+        "description": "",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 51,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Notificaci\u00f3n de arbitro escogido",
+        "description": "Notificar la terna de arbitros para que cada parte elimine uno.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 52,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Minuta",
+        "description": "Detallar todo lo discutido o ocurrido en una reunion, conferencia o vista",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 53,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Informe del Mediador",
+        "description": "Informar resultado de mediacion  y referir el caso para la continuacion de los procedimientos.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "isPublic":"False"
+    }
+},
+{
+    "pk": 54,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Informe del Conciliador",
+        "description": "Informar resultado de conciliacion  y referir el caso a arbitraje obligatorio.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "isPublic":"False"
+    }
+},
+{
+    "pk": 55,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Certificaci\u00f3n de Comparecencia",
+        "description": "Certificar fecha, hora y para que caso comparecio una persona.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 56,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Laudo Parcial",
+        "description": "Resolver planteamientos sobre descubrimiento de prueba y o informar determinacion de que se posee jurisdiccion.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 57,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Laudo de Arbitraje",
+        "description": "Adjudicar finalmente la controversia presentada.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 58,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Laudo de Arbitraje Obligatorio",
+        "description": "Disponer como finalmente leera las clausulas del convenio que eran parte del estancamiento.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"True"
+    }
+},
+{
+    "pk": 59,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Informe Final",
+        "description": "Detallar informacion general del caso",
+        "allowedCaseClosed":"True",
+        "requires_terms":"False",
+        "requires_acceptance":"True",
+        "requires_notification":"False",
+        "isPublic":"False"
+    }
+},
+{
+    "pk": 60,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Actualización",
+        "description": "Se actualizó la información del caso",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"False"
+    }
+},
+{
+    "pk": 61,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            2
+        ],
+        "direction": "in",
+        "name": "Otros",
+        "description": "Otro tipo de documentos",
+        "allowedCaseClosed":"False",
+        "requires_terms":"False",
+        "requires_acceptance":"False",
+        "requires_notification":"False"
+    }
+},
+{
+    "pk": 67,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Resoluci\u00f3n y Orden",
+        "description": "Resolución denegando solicitud de cambio de vista, de inhibición, o de consolidación y ordenes como parte del procedimiento de arbitraje (reuniones, entrega de documentos o informar status de negociaciones, aceptación de renuncia o anuncio de representación legal). Además, para atender cualquier asunto interlocutorio.",
+        "allowedCaseClosed":"False",
+        "requires_terms":"True",
+        "requires_acceptance":"True",
+        "requires_notification":"False"
+    }
+},
+{
+    "pk": 68,
+    "model": "events.eventtype",
+    "fields": {
+        "case_type": [
+            1,
+            2
+        ],
+        "direction": "out",
+        "name": "Requerimiento de Documentos",
+        "description": "",
+        "allowedCaseClosed":"False",
+        "requires_terms":"True",
+        "requires_acceptance":"True",
+        "requires_notification":"False"
+    }
+},
+{
+    "pk": 1,
+    "model": "events.eventcaseparty",
+    "fields": {
+        "name": "Apelante"
+    }
+},
+{
+    "pk": 2,
+    "model": "events.eventcaseparty",
+    "fields": {
+        "name": "Apelado"
+    }
+},
+{
+    "pk": 3,
+    "model": "events.eventcaseparty",
+    "fields": {
+        "name": "Tribunal"
+    }
+}
+]

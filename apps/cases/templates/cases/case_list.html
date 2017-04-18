@@ -1,0 +1,50 @@
+{% extends "base.html" %}'
+{% load django_tables2 %}
+{% block title %}Casos{% endblock title %}
+{% block main %}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-12">
+        <h3 class="page-actions-heading">Casos</h3>
+        {% if has_add_case_perm %}
+          <a class="btn btn-grey pull-right" href="{% url 'case_create' %}">Crear caso</a>
+        {% endif %}
+      </div>
+      <div class="col-md-12">
+        <hr>
+      </div>
+      <div class="col-md-12">
+        <form method="GET" action="{% url 'case_list' %}">
+          <div class="col-md-10">
+            <div class="form-group">
+              <input name="search" value="{{ search_query }}" type="text" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <button type="submit" class="btn btn-default btn-block">Buscar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-12">
+        <p class="lead">Mis Casos</p>
+        <hr>
+        {% if user_case_table %}
+          {% render_table user_case_table %}
+        {% else %}
+          <p class="lead text-center">No tiene casos asignados.</p>
+        {% endif %}
+      </div>
+      <div class="col-md-12">
+        <p class="lead">Todos los Casos</p>
+        <hr>
+        {% if case_list_table %}
+          {% render_table case_list_table %}
+        {% else %}
+          <p class="lead text-center">No se encontraron resultados.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock main %}

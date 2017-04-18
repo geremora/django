@@ -1,0 +1,44 @@
+[
+{
+    "pk": 1,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "XX",
+        "name": "Unasigned",
+        "description": ""
+    }
+},
+{
+    "pk": 2,
+    "model": "cases.casetype",
+    "fields": {
+        "code": "AO",
+        "name": "Arbitraje",
+        "description": ""
+    }
+},
+{
+    "pk": 1,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Traslado",
+        "description": "Traslado it is."
+    }
+},
+{
+    "pk": 2,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Despido",
+        "description": "Cuando botan la gente"
+    }
+},
+{
+    "pk": 3,
+    "model": "cases.casecategory",
+    "fields": {
+        "name": "Retención",
+        "description": "Retencion"
+    }
+}
+]

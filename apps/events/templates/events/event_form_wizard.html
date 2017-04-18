@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% block title %}Crear documento{% endblock title %}
+{% block main %}
+    <h3>Crear documento</h3>
+    {% if wizard.form.errors %}
+        <div class="alert alert-error">
+            <strong>Ups!</strong> Errores de validación en el formulario
+        </div>
+    {% endif %}
+    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+        {{ wizard.form.media }}
+        {{ wizard.management_form }}
+        {% if wizard.form.forms %}
+            {{ wizard.form.management_form }}
+            {% for form in wizard.form.forms %}
+                {{ form|bootstrap }}
+            {% endfor %}
+        {% else %}
+            {{ wizard.form|bootstrap}}
+        {% endif %}
+
+        {% if wizard.steps.prev %}
+            <button type="submit" class="btn btn-grey">Emitir con documento</button>
+            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" class="btn btn-link">Previous step</button>
+        {% else %}
+            <button type="submit" class="btn btn-grey" name="with_attachment" value="True">Emitir con attachment</button>
+            <button type="submit" class="btn" name="create_document" value="True">Crear documento</button>
+        {% endif %}
+    </form>
+{% endblock main %}
